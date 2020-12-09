@@ -1,5 +1,5 @@
 cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
-                            subtitle=NULL,Xlabel=NULL,Ylabel=NULL,country) {
+                            subtitle=NULL,Xlabel=NULL,Ylabel=NULL,country, max, steps) {
 
 
   data_source2 <- data_source %>% filter(ISO3_code==country) %>%
@@ -12,7 +12,7 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
          subtitle = subtitle,
          x = Xlabel,
          y = Ylabel) +
-    scale_y_continuous(limits=c(0,200),breaks=seq(0,200,20))+
+    scale_y_continuous(limits=c(0,max),breaks=seq(0,max,steps))+
     scale_x_date(expand=c(0,0),  breaks=seq(as.Date("1970-01-01"),as.Date("2019-01-01"), by="2 years"), date_labels=("%Y"))+
     my_OECD_theme() +   #set the background of the plot as white
     theme(panel.grid.minor = element_blank(),

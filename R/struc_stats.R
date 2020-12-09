@@ -44,16 +44,18 @@ house_price_data=struc %>% select(ISO3_code, period, rhp) %>% filter(year(period
 house_price_data<-na.omit(house_price_data)
 
 stats_hp<-house_price_data %>%arrange(ISO3_code,period) %>%group_by(ISO3_code)  %>%
-  arrange(ISO3_code,period)%>% group_by(ISO3_code) %>%
-  mutate(rhp_2010= ifelse(year(period)==2010, rhp,NA ))%>%
-  fill(rhp_2010) %>% fill(rhp_2010, .direction = "up")%>%
-  mutate(rhp_ind2010=rhp/rhp_2010*100)
+  arrange(ISO3_code,period)%>% group_by(ISO3_code)
+#%>%
+ # mutate(rhp_2010= ifelse(year(period)==2010, rhp,NA ))%>%
+  #fill(rhp_2010) %>% fill(rhp_2010, .direction = "up")%>%
+  #mutate(rhp_ind2010=rhp/rhp_2010*100)
+  stats_hp<-stats_hp %>%rename(rhp_ind2010=rhp)
 
 #keep 2020 and 2000 for who has it
 stats_hp_bar<-stats_hp %>% group_by(ISO3_code) %>%
   filter( (year(period))>=2000)  %>%
   filter( year(period)==first(year(period)) |year(period)==2008 | year(period)==last(year(period) )) %>%
-  select(ISO3_code, period, rhp, rhp_ind2010) %>%
+  select(ISO3_code, period,  rhp_ind2010) %>%
   filter(ISO3_code!="OECD")
 
 
@@ -69,20 +71,22 @@ gr_hp<-stats_hp_bar %>%arrange(ISO3_code,period) %>% group_by(ISO3_code) %>%
 rent_price_data=struc %>% select(ISO3_code, period, rpi)%>% filter(year(period)>=1990)
 
 stats_rentp<- rent_price_data %>%arrange(ISO3_code,period) %>%group_by(ISO3_code)  %>%
-  arrange(ISO3_code,period)%>% group_by(ISO3_code) %>%
-  mutate(rpi_2010= ifelse(year(period)==2010, rpi,NA ))%>%
-  fill(rpi_2010) %>% fill(rpi_2010, .direction = "up")%>%
-  mutate(rentp_ind2010=rpi/rpi_2010*100)
+  arrange(ISO3_code,period)%>% group_by(ISO3_code)
+#%>%
+ # mutate(rpi_2010= ifelse(year(period)==2010, rpi,NA ))%>%
+  #fill(rpi_2010) %>% fill(rpi_2010, .direction = "up")%>%
+  #mutate(rentp_ind2010=rpi/rpi_2010*100)
+stats_rentp<-stats_rentp %>%rename(rentp_ind2010=rpi)
 
 #keep 2019 and 2000 for who has it
 stats_rentp_bar<-stats_rentp %>% group_by(ISO3_code) %>%
   filter( (year(period))>=2000)  %>%
   filter( year(period)==first(year(period)) | year(period)==last(year(period) )) %>%
-  select(ISO3_code, period, rpi, rentp_ind2010) %>%
+  select(ISO3_code, period, rentp_ind2010) %>%
   filter(ISO3_code!="OECD")
 
 gr_rentp<-stats_rentp_bar %>%arrange(ISO3_code,period) %>% group_by(ISO3_code) %>%
-  mutate(rate=((rpi-lag(rpi))/lag(rpi))*100)%>%
+  mutate(rate=((rentp_ind2010-lag(rentp_ind2010))/lag(rentp_ind2010))*100)%>%
   ungroup()%>%
   mutate(OECD_av=mean(rate, na.rm =T))%>%
   filter(ISO3_code==ctry_code)%>%

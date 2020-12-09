@@ -126,11 +126,11 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
 
   sentence1=paste0("Housing policies affect people’s well-being through a wide range of channels including access to decent shelter, environmental quality, efficient use of scarce resources, type and extent of commuting, as well as its contribution to strong and resilient economic growth. This note provides a cross-country perspective on " ,ctry_name, "’s housing-related indicators and policy settings.")
 
-  sentence2=paste0("Households’ tenure choices depend on demographics and/or socio-economic factors,such as population ageing, as well as policies related to housing taxation and rental regulations. There are large differences in tenure structure across OECD and key partner countries: homeownership in ", ctry_name," is ", sentence_homewonership(ht_avg_OECD, myctry_hh)," OECD average (Figure a). ")
+  sentence2=paste0("Households’ tenure choices depend on demographics and/or socio-economic factors, such as population ageing, as well as policies related to housing taxation and rental regulations. There are large differences in tenure structure across OECD and key partner countries: homeownership in ", ctry_name," is ", sentence_homewonership(ht_avg_OECD, myctry_hh)," OECD average (Figure a). ")
 
-  sentence3=paste0("Real house prices and rent prices have risen strongly in many countries since the 1990s, with prices increasing by more than 100% in those countries experiencing the largest increases (Figure b, c). ",sentence_rhp(gr_hp, ctry_code, ctry_name), ".")
+  sentence3=paste0("Real house prices and rent prices have risen strongly in many countries since the 1990s, with prices increasing by more than 100 percent in those countries experiencing the largest increases (Figure b, c). ",sentence_rhp(gr_hp, ctry_code, ctry_name), ".")
 
-  sentence4=paste0(" Finally, mortgage markets play a crucial role in housing markets since housing generally constitutes the household's single largest financial outlay. The share of outstanding households' mortgage claims in terms of GDP in ", ctry_name," is ", sentece_mortg(avg_mortg, mortgage_data_myctr,myctry_hh, ht_avg_OECD)," (Figure d).")
+  sentence4=paste0(" Finally, mortgage markets play a crucial role in housing markets since housing generally constitutes the household's single largest financial outlay. The ratio of outstanding households' mortgage claims to GDP in ", ctry_name," is ", sentece_mortg(avg_mortg, mortgage_data_myctr,myctry_hh, ht_avg_OECD)," (Figure d).")
 
   return(paste0(sentence1,sentence2,sentence3,sentence4, sep=" "))
 
